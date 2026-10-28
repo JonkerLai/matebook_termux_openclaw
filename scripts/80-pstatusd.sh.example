@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# 80-pstatusd — 可选：一个简单的状态网页（示例，需自备 ~/bin/pstatusd）
+# 不需要就删掉这个文件，或改名去掉 .example
+. "$(cd "$(dirname "$0")" && pwd)/lib.sh"
+NAME=pstatusd
+SETTLE=3
+
+check() { [ "$(http "http://127.0.0.1:$PSTATUS_PORT/api/status")" = "200" ]; }
+
+start() {
+  [ -x "$HOME/bin/pstatusd" ] || { log "$NAME" "missing ~/bin/pstatusd"; return 1; }
+  setsid nohup "$HOME/bin/pstatusd" >> "$HOME/statusd.log" 2>&1 < /dev/null &
+}
+
+. "$SERVICES_DIR/_run.sh"

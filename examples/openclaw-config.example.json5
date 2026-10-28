@@ -1,0 +1,50 @@
+// OpenClaw 配置片段示例（合并进 ~/.openclaw/openclaw.json）
+// 注意：这是 JSON5，含注释；实际保存时可以是纯 JSON
+{
+  gateway: {
+    // 允许通过本地隧道访问（cloudflared 从 127.0.0.1 连进来）
+    trustedProxies: ["127.0.0.1/32", "::1/128"],
+
+    // 面板允许的来源（隧道地址变了要同步）
+    controlUi: {
+      allowedOrigins: [
+        "http://127.0.0.1:18789",
+        "http://localhost:18789"
+      ]
+    }
+  },
+
+  models: {
+    providers: {
+      deepseek: {
+        baseUrl: "https://api.deepseek.com",
+        api: "openai-completions",
+        apiKey: "sk-YOUR_KEY_HERE",
+        models: [
+          { id: "deepseek-chat", name: "DeepSeek Chat" },
+          { id: "deepseek-reasoner", name: "DeepSeek Reasoner", reasoning: true }
+        ]
+      }
+    }
+  },
+
+  agents: {
+    defaults: { model: "deepseek/deepseek-chat" }
+  },
+
+  // Android 上必须关掉，否则每 2 秒报错一次
+  cron: { enabled: false },
+
+  tools: {
+    web: { search: { enabled: true, provider: "duckduckgo", maxResults: 5 } }
+  },
+
+  memory: {
+    search: {
+      enabled: true,
+      provider: "ollama",
+      model: "nomic-embed-text",
+      rememberAcrossConversations: true
+    }
+  }
+}

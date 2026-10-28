@@ -1,0 +1,7 @@
+# dufs 用户表：用户名:密码:权限
+#   rw = 可读写    ro = 只读
+# 密码里不要用 : 和 @
+# 改完执行： ./start.sh dufs
+
+admin:CHANGE_ME_PLEASE:rw
+guest:CHANGE_ME_TOO:ro

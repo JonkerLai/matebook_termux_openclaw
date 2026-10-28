@@ -1,0 +1,12 @@
+# services.conf — 服务开关（1=启用 0=禁用）
+# 改名去掉 .example 后生效；install.sh 会自动创建
+
+wakelock      1
+sshd          1
+ollama        1
+gateway       1
+tunnel        1
+origin        1
+watchdog      1
+dufs          1
+dufs-tunnel   1
